@@ -85,9 +85,4 @@ jobs:
             # Optional: restart app service if you have one configured
             # sudo systemctl restart gunicorn
           EOF
-=======
-git add requirements.txt .github/workflows/Task1.yml
-git commit -m "Add GitHub Actions CI/CD"
-git pull origin main --rebase
-git push origin main
->>>>>>> 1522d04 (Initial project commit)
+          
