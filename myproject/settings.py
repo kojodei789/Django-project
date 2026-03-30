@@ -12,31 +12,12 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-<<<<<<< HEAD
-SECRET_KEY = 'django-insecure-8biy(3%6e#9(!ub13bnwpabh0_@gf#0pd08g#xp7t^fnw%ilv%'
-=======
-SECRET_KEY = 'django-insecure-@5sq%82ob((yl6j#*b3(=2h%1&6mzx$nn63_ljp(g+-&i@7f0o'
->>>>>>> ce468e8 (Initial project commit)
-
-# SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY = 'django-insecure-temp-key'
 DEBUG = True
 
-<<<<<<< HEAD
-ALLOWED_HOSTS = ['54.160.242.45', 'localhost', '127.0.0.1']
-=======
-ALLOWED_HOSTS = ['98.92.52.0', 'localhost', '127.0.0.1']
->>>>>>> ce468e8 (Initial project commit)
-
-
-# Application definition
+ALLOWED_HOSTS = ['54.173.28.199', 'localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -76,10 +57,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -87,39 +64,13 @@ DATABASES = {
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/6.0/topics/i18n/
+AUTH_PASSWORD_VALIDATORS = []
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
-
 STATIC_URL = 'static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
