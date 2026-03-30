@@ -47,6 +47,8 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.KAD }}" > ~/.ssh/ec2_key.pem
+          echo "${{ secrets.KAD1 }}" > ~/.ssh/ec2_key.pem
+          bbbfe0a (Initial commit)
           chmod 600 ~/.ssh/ec2_key.pem
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
