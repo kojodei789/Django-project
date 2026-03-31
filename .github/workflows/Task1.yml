@@ -51,12 +51,6 @@ jobs:
           chmod 600 ~/.ssh/KAD.pem
           ssh-keyscan -H "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts
 
-      - name: Check SSH key format
-        run: |
-          head -n 2 ~/.ssh/KAD.pem
-          tail -n 2 ~/.ssh/KAD.pem
-          ssh-keygen -y -f ~/.ssh/KAD.pem > /dev/null
-
       - name: Copy files to EC2
         run: |
           rsync -avz --delete \
