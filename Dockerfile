@@ -1,25 +1,40 @@
-FROM python:3.11-slim
+name: task1
 
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+on:
+  push:
+    branches:
+      - deploy-to-ec2
 
-WORKDIR /app
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpq-dev \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
 
-COPY requirements.txt .
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+      - name: Build Docker Image
+        run: docker build -t kojodei789/django-cicd-app:latest .
 
-COPY . .
+      - name: Publish image to Docker Hub
+        run: docker push kojodei789/django-cicd-app:latest
 
-RUN python manage.py collectstatic --noinput
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
 
-EXPOSE 8000
+    steps:
+      - name: Deploy to EC2
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/KAD.pem
+          chmod 600 ~/.ssh/KAD.pem
 
-ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:8000", "project_name.wsgi:application"]
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/KAD.pem ubuntu@${{ secrets.EC2_HOST }} << EOF
+            docker pull kojodei789/django-cicd-app:latest
+            docker rm -f djangoContainer || true
+            docker run -d -p 8000:8000 --name djangoContainer kojodei789/django-cicd-app:latest
+          EOF
