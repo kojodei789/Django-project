@@ -32,6 +32,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/KAD.pem
           chmod 600 ~/.ssh/KAD.pem
+          sed -i 's/\r$//' ~/.ssh/KAD.pem
 
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/KAD.pem ubuntu@${{ secrets.EC2_HOST }} << EOF
             docker pull kojodei789/django-cicd-app:latest
