@@ -23,4 +23,4 @@ RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
-ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:8000", "Django-project.wsgi:application"]
+ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:8000", "myproject.wsgi:application"]
